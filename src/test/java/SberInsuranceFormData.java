@@ -11,9 +11,9 @@ public class SberInsuranceFormData {
     String thirdButton = "//button[contains(text(), 'Продолжить')]";
     String validateHeader = "//form//alert-form//div";
 
-    String surName = "//input[@id='surname_vzr_ins_0']";
-    String name = "//input[@id='name_vzr_ins_0']";
-    String birthDay = "//input[@id='birthDate_vzr_ins_0']";
+    String insuredPersonSurName = "//input[@id='surname_vzr_ins_0']";
+    String insuredPersonName = "//input[@id='name_vzr_ins_0']";
+    String insuredPersonBirthDay = "//input[@id='birthDate_vzr_ins_0']";
 
     String personLastName = "//input[@id='person_lastName']";
     String personName = "//input[@id='person_firstName']";

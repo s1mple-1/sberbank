@@ -47,14 +47,18 @@ public class SberbankTests extends BaseTest {
         findElementAndClick(formData.buttonSecond);
 
         //8
-        sendTextToForm(person.getInsuredPerson().getSurName(), formData.surName);
-        sendTextToForm(person.getInsuredPerson().getName(), formData.name);
-        sendTextToForm(person.getInsuredPerson().getBirthDay(), formData.birthDay);
+        //insured
+        sendTextToForm(person.getInsuredPerson().getSurName(), formData.insuredPersonSurName);
+        sendTextToForm(person.getInsuredPerson().getName(), formData.insuredPersonName);
+        sendTextToForm(person.getInsuredPerson().getBirthDay(), formData.insuredPersonBirthDay);
+        //person
         sendTextToForm(person.getPersonLastName(), formData.personLastName);
         sendTextToForm(person.getPersonName(), formData.personName);
-        sendTextToForm(person.getPersonName(), formData.personMiddleName);
+        sendTextToForm(person.getPersonMiddleName(), formData.personMiddleName);
+        //sex
         String maleXpath = person.isMale() ? formData.male : formData.female;
         findElementAndClick(maleXpath);
+        //passport
         sendTextToForm(person.getPassportData().getPersonBirthDate(), formData.personBirthDate);
         sendTextToForm(person.getPassportData().getPassportSeries(), formData.passportSeries);
         sendTextToForm(person.getPassportData().getPassportNumber(), formData.passportNumber);
@@ -62,13 +66,18 @@ public class SberbankTests extends BaseTest {
         sendTextToForm(person.getPassportData().getPassportIssue(), formData.passportIssue);
 
         //9
-        checkTextInForm(person.getInsuredPerson().getSurName(), formData.surName);
-        checkTextInForm(person.getInsuredPerson().getName(), formData.name);
-        checkTextInForm(person.getInsuredPerson().getBirthDay(), formData.birthDay);
+        //insured
+        checkTextInForm(person.getInsuredPerson().getSurName(), formData.insuredPersonSurName);
+        checkTextInForm(person.getInsuredPerson().getName(), formData.insuredPersonName);
+        checkTextInForm(person.getInsuredPerson().getBirthDay(), formData.insuredPersonBirthDay);
+        //person
         checkTextInForm(person.getPersonLastName(), formData.personLastName);
-        checkTextInForm(person.getPersonName(), formData.personMiddleName);
+        checkTextInForm(person.getPersonName(), formData.personName);
+        checkTextInForm(person.getPersonMiddleName(), formData.personMiddleName);
+        //sex
         String checkMaleXpath = person.isMale() ? formData.maleCheck : formData.femaleCheck;
         checkElementVisibility(checkMaleXpath);
+        //passport
         checkTextInForm(person.getPassportData().getPersonBirthDate(), formData.personBirthDate);
         checkTextInForm(person.getPassportData().getPassportSeries(), formData.passportSeries);
         checkTextInForm(person.getPassportData().getPassportNumber(), formData.passportNumber);
