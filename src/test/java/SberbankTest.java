@@ -5,7 +5,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import java.util.stream.Stream;
 
 @DisplayName("Проверка валидации при не полном заполнении форм")
-public class SberbankTests extends BaseTest {
+public class SberbankTest extends BaseTest {
     private SberInsuranceFormData formData = new SberInsuranceFormData();
 
     private static SberTestPerson personFirst = new SberTestPerson("Федотов", "Федот", "Федотович",

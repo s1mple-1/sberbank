@@ -14,22 +14,20 @@ public class BaseTest {
     private WebDriver webDriver;
     private WebDriverWait webDriverWait;
 
-    @BeforeEach
+    @BeforeEach()
     void initDriver() {
-/*     change String 'browser' to needed
- available: for chrome - 'ch', for opera - 'op', for firefox = 'ff'*/
-        String browser = "op";
+        String browser = System.getProperty("browser", "chrome");
 
         switch (browser) {
-            case "ch":
+            case "chrome":
                 System.setProperty("webdriver.chrome.driver", "webdrivers/chromedriver.exe");
                 webDriver = new ChromeDriver();
                 break;
-            case "op":
+            case "opera":
                 System.setProperty("webdriver.opera.driver", "webdrivers/operadriver.exe");
                 webDriver = new OperaDriver();
                 break;
-            case "ff":
+            case "firefox":
                 System.setProperty("webdriver.gecko.driver", "webdrivers/geckodriver.exe");
                 webDriver = new FirefoxDriver();
                 break;
