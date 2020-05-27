@@ -18,7 +18,7 @@ public class BaseTest {
     void initDriver() {
 /*     change String 'browser' to needed
  available: for chrome - 'ch', for opera - 'op', for firefox = 'ff'*/
-        String browser = "ff";
+        String browser = "op";
 
         switch (browser) {
             case "ch":
@@ -66,6 +66,7 @@ public class BaseTest {
         WebElement webElement = webDriver.findElement(By.xpath(xPath));
         webElement.click();
         webElement.sendKeys(text);
+        webElement.sendKeys(Keys.ENTER);//необходимо для стабильности при заполнении даты
     }
 
     void checkTextInForm(String expected, String xPath) {
@@ -74,9 +75,9 @@ public class BaseTest {
         Assertions.assertEquals(expected, actual, String.format("Ожидаемое содержание '%s', фактическое '%s'", expected, actual));
     }
 
-    void checkElementVisibility(String xPath) {
+    void checkElement(String xPath) {
         webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xPath)));
         WebElement webElement = webDriver.findElement(By.xpath(xPath));
-        Assertions.assertTrue(webElement.isDisplayed(), "Элемент не отображается");
+        Assertions.assertTrue(webElement.isDisplayed(), "Элемент не отображается или не выбран");
     }
 }

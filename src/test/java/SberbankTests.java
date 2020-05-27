@@ -9,22 +9,26 @@ public class SberbankTests extends BaseTest {
     private SberInsuranceFormData formData = new SberInsuranceFormData();
 
     private static SberTestPerson personFirst = new SberTestPerson("Федотов", "Федот", "Федотович",
-            new SberTestPerson.SberTestPassportData("27.12.1970", "4600", "333555", "01.01.2020", "УВД Таганка"),
+            new SberTestPerson.SberTestPassportData("27.12.1970", "4600", "333555", "28.12.2015", "УВД Таганка"),
             new SberTestPerson.SberInsuredPerson("Fedotov", "Fedot", "27.12.1970"), true);
 
     private static SberTestPerson personSecond = new SberTestPerson("Смирнова", "Анна", "Федотовна",
-            new SberTestPerson.SberTestPassportData("25.03.2002", "4600", "333555", "01.01.2020", "УВД Лубянка"),
-            new SberTestPerson.SberInsuredPerson("Smirnova", "Anna", "25.03.2002"), false);
+            new SberTestPerson.SberTestPassportData("29.12.1999", "4603", "333555", "27.03.2020", "УВД Лубянка"),
+            new SberTestPerson.SberInsuredPerson("Smirnova", "Anna", "29.12.1999"), false);
+
+    private static SberTestPerson personThird = new SberTestPerson("Петров", "Иван", "Иванович",
+            new SberTestPerson.SberTestPassportData("06.01.1990", "4601", "456879", "20.05.2011", "УВД Каменск-Шахтинска"),
+            new SberTestPerson.SberInsuredPerson("Petrov", "Ivan", "06.01.1990"), true);
 
     private static Stream<SberTestPerson> streamPerson() {
-        return Stream.of(personFirst, personSecond);
+        return Stream.of(personFirst, personSecond, personThird);
     }
 
 
     @ParameterizedTest
     @MethodSource("streamPerson")
     @DisplayName("Проверка формы 'Страхование путешественников'")
-    void sberbankTest(SberTestPerson person) {
+    void sberbankTest(SberTestPerson testPerson) {
         //1
         getSite(formData.site);
 
@@ -35,7 +39,7 @@ public class SberbankTests extends BaseTest {
         findElementAndClick(formData.insuranceOfTravelers);
 
         //4
-        checkElementVisibility(formData.insuranceHeaderFirst);
+        checkElement(formData.insuranceHeaderFirst);
 
         //5
         findElementAndClick(formData.buttonFirst);
@@ -48,46 +52,46 @@ public class SberbankTests extends BaseTest {
 
         //8
         //insured
-        sendTextToForm(person.getInsuredPerson().getSurName(), formData.insuredPersonSurName);
-        sendTextToForm(person.getInsuredPerson().getName(), formData.insuredPersonName);
-        sendTextToForm(person.getInsuredPerson().getBirthDay(), formData.insuredPersonBirthDay);
+        sendTextToForm(testPerson.getInsuredPerson().getSurName(), formData.insuredPersonSurName);
+        sendTextToForm(testPerson.getInsuredPerson().getName(), formData.insuredPersonName);
+        sendTextToForm(testPerson.getInsuredPerson().getBirthDay(), formData.insuredPersonBirthDay);
         //person
-        sendTextToForm(person.getPersonLastName(), formData.personLastName);
-        sendTextToForm(person.getPersonName(), formData.personName);
-        sendTextToForm(person.getPersonMiddleName(), formData.personMiddleName);
+        sendTextToForm(testPerson.getPersonLastName(), formData.personLastName);
+        sendTextToForm(testPerson.getPersonName(), formData.personName);
+        sendTextToForm(testPerson.getPersonMiddleName(), formData.personMiddleName);
         //sex
-        String maleXpath = person.isMale() ? formData.male : formData.female;
+        String maleXpath = testPerson.isMale() ? formData.male : formData.female;
         findElementAndClick(maleXpath);
         //passport
-        sendTextToForm(person.getPassportData().getPersonBirthDate(), formData.personBirthDate);
-        sendTextToForm(person.getPassportData().getPassportSeries(), formData.passportSeries);
-        sendTextToForm(person.getPassportData().getPassportNumber(), formData.passportNumber);
-        sendTextToForm(person.getPassportData().getPassportDate(), formData.passportDate);
-        sendTextToForm(person.getPassportData().getPassportIssue(), formData.passportIssue);
+        sendTextToForm(testPerson.getPassportData().getPersonBirthDate(), formData.personBirthDate);
+        sendTextToForm(testPerson.getPassportData().getPassportSeries(), formData.passportSeries);
+        sendTextToForm(testPerson.getPassportData().getPassportDate(), formData.passportDate);
+        sendTextToForm(testPerson.getPassportData().getPassportNumber(), formData.passportNumber);
+        sendTextToForm(testPerson.getPassportData().getPassportIssue(), formData.passportIssue);
 
         //9
         //insured
-        checkTextInForm(person.getInsuredPerson().getSurName(), formData.insuredPersonSurName);
-        checkTextInForm(person.getInsuredPerson().getName(), formData.insuredPersonName);
-        checkTextInForm(person.getInsuredPerson().getBirthDay(), formData.insuredPersonBirthDay);
+        checkTextInForm(testPerson.getInsuredPerson().getSurName(), formData.insuredPersonSurName);
+        checkTextInForm(testPerson.getInsuredPerson().getName(), formData.insuredPersonName);
+        checkTextInForm(testPerson.getInsuredPerson().getBirthDay(), formData.insuredPersonBirthDay);
         //person
-        checkTextInForm(person.getPersonLastName(), formData.personLastName);
-        checkTextInForm(person.getPersonName(), formData.personName);
-        checkTextInForm(person.getPersonMiddleName(), formData.personMiddleName);
+        checkTextInForm(testPerson.getPersonLastName(), formData.personLastName);
+        checkTextInForm(testPerson.getPersonName(), formData.personName);
+        checkTextInForm(testPerson.getPersonMiddleName(), formData.personMiddleName);
         //sex
-        String checkMaleXpath = person.isMale() ? formData.maleCheck : formData.femaleCheck;
-        checkElementVisibility(checkMaleXpath);
+        String checkMaleXpath = testPerson.isMale() ? formData.maleCheck : formData.femaleCheck;
+        checkElement(maleXpath);
         //passport
-        checkTextInForm(person.getPassportData().getPersonBirthDate(), formData.personBirthDate);
-        checkTextInForm(person.getPassportData().getPassportSeries(), formData.passportSeries);
-        checkTextInForm(person.getPassportData().getPassportNumber(), formData.passportNumber);
-        checkTextInForm(person.getPassportData().getPassportDate(), formData.passportDate);
-        checkTextInForm(person.getPassportData().getPassportIssue(), formData.passportIssue);
+        checkTextInForm(testPerson.getPassportData().getPersonBirthDate(), formData.personBirthDate);
+        checkTextInForm(testPerson.getPassportData().getPassportSeries(), formData.passportSeries);
+        checkTextInForm(testPerson.getPassportData().getPassportNumber(), formData.passportNumber);
+        checkTextInForm(testPerson.getPassportData().getPassportDate(), formData.passportDate);
+        checkTextInForm(testPerson.getPassportData().getPassportIssue(), formData.passportIssue);
 
         //10
         findElementAndClick(formData.thirdButton);
 
         //11
-        checkElementVisibility(formData.validateHeader);
+        checkElement(formData.validateHeader);
     }
 }
