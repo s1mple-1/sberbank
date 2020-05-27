@@ -80,7 +80,7 @@ public class SberbankTest extends BaseTest {
         checkTextInForm(testPerson.getPersonMiddleName(), formData.personMiddleName);
         //sex
         String checkMaleXpath = testPerson.isMale() ? formData.maleCheck : formData.femaleCheck;
-        checkElement(maleXpath);
+        checkElement(checkMaleXpath);
         //passport
         checkTextInForm(testPerson.getPassportData().getPersonBirthDate(), formData.personBirthDate);
         checkTextInForm(testPerson.getPassportData().getPassportSeries(), formData.passportSeries);
